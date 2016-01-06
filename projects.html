@@ -113,7 +113,7 @@
 									
 									<div class="row 50%">
 										<div class="4u">
-											<a href="projects.html#random_numbers" class="image fit"><img src="images/spectralTest2.png" alt="A spectral test" /></a>
+											<a href="projects.html#random_numbers" class="image fit"><img src="images/spectralTest2.PNG" alt="A spectral test" /></a>
 										</div>
 										<div class="8u">
 											<h4><a href="projects.html#random_numbers">Random Number Generators &nbsp;&nbsp;&nbsp;&nbsp;<small><i>05/01/16</i></small></a></h4>
@@ -192,7 +192,7 @@
 											A brief look at generating and testing (pseudo) random numbers
 										</p>
 									</header>
-									<a href="projects.html#random_numbers" class="image featured"><img src="images/spectralTest2.png" alt="A spectral test" /></a>
+									<a href="projects.html#random_numbers" class="image featured"><img src="images/spectralTest2.PNG" alt="A spectral test" /></a>
 									<h3><small> <i> 05/01/16 </i> </small></h3>
 									<p>
 										This first project is just a rehash of some of my university studies that I thought would be interesting
@@ -290,7 +290,7 @@
 											results are displayed in Table II below (there is no Table I in this post, this is just a screenshot from some earlier work of mine).
 											I tested two LCGs and two LFGs, the "Count" column showing how many numbers were tested with the generators. If the K statistics fall within the 10&#37; and
 											90&#37; limits (as calculated using the expression above), the number sequence generated is said to be sufficiently random.
-											<a class="image featured"><img src="images/KStest.png" alt="KStest" /></a>
+											<a class="image featured"><img src="images/KStest.PNG" alt="KStest" /></a>
 										</p>
 										<p>
 											From the table, <img src="http://latex.codecogs.com/svg.latex?\inline \mathtt{LCG}\left [ 256,137,187 \right ]" border="0"/> does not appear to be very good. It passes the KS test only when using a very small sample size (example here is 10), but fails for larger sample sizes (beginning somewhere between 10 and 100). This isn't very surprising considering the small modulus of this LCG, which gives it a small period, and since it is recommended that one only use  <img src="http://latex.codecogs.com/svg.latex?\inline 1/\sqrt{\mathrm{period \ length}} " border="0"/> of the numbers generated, this leaves a smaller amount of numbers still. The second LCG tested, <img src="http://latex.codecogs.com/svg.latex?\inline \mathtt{LCG}\left [ 2^{22}, 3067221, 0 \right ]" border="0"/>, has a much larger modulus and thus period, and passed the KS test at the 10&#37; and 90&#37; limits for the &#126;4 orders of magnitude I looked tested it on.
@@ -312,10 +312,10 @@
 										</p>
 										<p>
 											For the 2D distribution this means plotting the successive points <img src="http://latex.codecogs.com/svg.latex?\inline (x_0, x_1), (x_1, x_2), (x_2, x_3), \cdots" border="0"/>, and for 3D using <img src="http://latex.codecogs.com/svg.latex?\inline (x_0, x_1, x_2), (x_1, x_2, x_3), (x_2, x_3, x_4), \cdots" border="0"/>. I created these plots using <a href="http://www.gnuplot.info/">Gnuplot</a> in both 2D and 3D for the two LCGs and LFGs looked at earlier, and have displayed them below.
-											<a class="image featured"><img src="images/spectralTest1.png" alt="spectralTest1" /></a>
-											<a class="image featured"><img src="images/spectralTest2.png" alt="spectralTest2" /></a>
-											<a class="image featured"><img src="images/spectralTest3.png" alt="spectralTest3" /></a>
-											<a class="image featured"><img src="images/spectralTest4.png" alt="spectralTest4" /></a>
+											<a class="image featured"><img src="images/spectralTest1.PNG" alt="spectralTest1" /></a>
+											<a class="image featured"><img src="images/spectralTest2.PNG" alt="spectralTest2" /></a>
+											<a class="image featured"><img src="images/spectralTest3.PNG" alt="spectralTest3" /></a>
+											<a class="image featured"><img src="images/spectralTest4.PNG" alt="spectralTest4" /></a>
 										</p>
 										<p>
 											We can see clearly in Fig 1 that <img src="http://latex.codecogs.com/svg.latex?\inline \mathtt{LCG}\left [ 256,137,187 \right ]" border="0"/> has obvious pattern in both the 2D and 3D spectral tests, and so fails each. In Fig 2, <img src="http://latex.codecogs.com/svg.latex?\inline \mathtt{LCG}\left [ 2^{22}, 3067221, 0 \right ]" border="0"/> could potentially pass the 2D test, though it is difficult to say visually whether the appearance of some faint lines and bunching of points is genuine or actually random. When we increase the dimension to 3D however, we see very obvious structure in the form of discrete parallel planes, showing the importance of inspecting higher dimensions for trends. This LCG therefore also fails the spectral test. 
