@@ -13,6 +13,9 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<link rel="shortcut icon" href="images/myicon64.png"/>
+		<script type="text/javascript" async
+ 			src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+		</script>
 	</head>
 	<body class="left-sidebar">
 		<div id="page-wrapper">
@@ -34,14 +37,15 @@
 								<li>
 									<a href="projects.html">Projects</a>
 									<ul>
-										<li><a href="projects.html#recent">Recent Projects</a></li>
+										<li><a href="projects.html#recent">Recent Project Posts</a></li>
 										<li><a href="projects.html#random_numbers">Random Number Generators &nbsp;&nbsp;&nbsp;&nbsp;<small><i>05/01/16</i></small></a></li>
 									</ul>
 								</li>
 								<li>
 									<a href="blog.html">Blog</a>
 									<ul>
-										<li><a href="blog.html#recent">Recent Posts</a></li>
+										<li><a href="blog.html#recent">Recent Blog Posts</a></li>
+										<li><a href="blog.html#displaying_maths">Displaying Maths &nbsp;&nbsp;&nbsp;&nbsp;<small><i>10/01/16</i></small></a></li>
 										<li><a href="blog.html#first_projects">First Projects &nbsp;&nbsp;&nbsp;&nbsp;<small><i>05/01/16</i></small></a></li>
 										<li><a href="blog.html#first_post">First Post! &nbsp;&nbsp;&nbsp;&nbsp;<small><i>31/12/15</i></small></a></li>
 										<li><a href="blog.html#blog_post_0">Blog Post #0 &nbsp;&nbsp;&nbsp;&nbsp;<small><i>30/12/15</i></small></a></li>
@@ -86,12 +90,24 @@
 <!-- TODO: Fix the thumbnails -->								
 								<section id="recent">
 									<header>
-										<h3><a href="blog.html#recent">Recent posts</a></h3>
+										<h3><a href="blog.html#recent">Recent Blog Posts</a></h3>
 									</header>
 									<p>
 										Chronological order
 									</p>
 									
+									<div class="row 50%">
+										<div class="4u">
+											<a href="blog.html#displaying_maths" class="image fit"><img src="images/eulers_identity.svg" alt="eulers_identity" /></a>
+										</div>
+										<div class="8u">
+											<h4><a href="blog.html#displaying_maths">Displaying Maths &nbsp;&nbsp;&nbsp;&nbsp;<small><i>10/01/16</i></small></a></h4>
+											<p>
+												A couple of different ways to display maths equations on a webpage.
+											</p>
+										</div>
+									</div>
+
 									<div class="row 50%">
 										<div class="4u">
 											<a href="blog.html#first_projects" class="image fit"><img src="images/letsgo.PNG" alt="Let's Go!" /></a>
@@ -144,11 +160,11 @@
 									<header>
 										<h2><a href="blog.html#"> - </a></h2>
 										<p>
-											Displaying maths in html. Codecogs vs MathJax.
-											Codecogs quick svg method cuts off tall characters when placed inline. Even using \inline (although this helps)
+											[DONE] Displaying maths in html. Codecogs vs MathJax.
+											[DONE] Codecogs quick svg method cuts off tall characters when placed inline. Even using \inline (although this helps)
 											Numbering equations.
 											Tables etc. Non-math.
-											Very annoying copy/pasting the code snippet for inline math using codecogs
+											[DONE] Very annoying copy/pasting the code snippet for inline math using codecogs
 
 											Image sizing in general.
 											The way hyperlinks are displayed.
@@ -169,6 +185,94 @@
 								</article>
 								<hr />
 								-->
+								<article id="displaying_maths">
+									<header>
+										<h2><a href="blog.html#displaying_maths">Displaying Maths</a></h2>
+										<p>
+											A couple of different ways to display maths equations on a webpage
+										</p>
+									</header>
+									<a href="blog.html#displaying_maths" class="image featured"><img src="images/eulers_identity.svg" alt="eulers_identity" title="Euler's Identity" /></a>
+									<h3><small> <i> 10/01/16 </i> </small></h3>
+									<p>
+										There are plenty of ways to write mathematical equations on a webpage, but I'm used to <a href="https://www.latex-project.org/">Latex</a> and want to display maths as Latex does.
+										It's visually pretty, and I'm used to the syntax, making it very easy to display what I want. So how does one display \(\LaTeX\) equations on their webpage?
+									</p>
+									<p>
+										In my quick search I came across a couple of good options. The first, and the one I used on my <a href="projects.html#random_numbers">first project post</a>,
+										is <a href="http://www.codecogs.com/">Code Cogs</a>. The other is <a href="https://www.mathjax.org/">MathJax</a>, which (spoiler) is what I'll be using from now on.
+
+									</p>
+									<section>
+										<header>
+											<h3>Code Cogs</h3>
+										</header>
+									<p>
+										I initially went with CodeCogs because I'd used their <a href="http://www.codecogs.com/latex/eqneditor.php">Equation Editor</a> and so had some familiarity with them,
+										and the implentation looked straightforward, whilst I thought MathJax would be trickier (it isn't). The setup for CodeCogs is well explained on their site
+										<a href="http://latex.codecogs.com/eqneditor/integration/htmlequations.php">http://latex.codecogs.com/eqneditor/integration/htmlequations.php</a>.
+										Using the equation 1+sin(x) as a running example, all you have to do is paste
+										\( \texttt{ &lt;img src="http://latex.codecogs.com/svg.latex?1+sin(x)" border="0"/&gt; } \) in the place you want to show the equation. Here's an example
+										with <img src="http://latex.codecogs.com/svg.latex?1+sin(x)" border="0"/> in the middle of the sentence.
+									</p>
+									<p>
+										Note that the "svg" format may not display
+										properly on some versions of Internet Explorer, and one can use "gif" format instead, but at the cost of terrible resolution. Another problem is that the equation
+										is displayed as an image, so cannot be highlighted or copy and pasted. Finally, the alignment is funny, sitting above the text, as well as often cutting off the top of 
+										an equation with tall characters, such as in <a href="blog.html#displaying_maths">the header image for this post</a>. Using \( \texttt{\inline}\) before the equation
+										helps slightly, but not much. When writing my first project post I knew this was not going to be acceptable and to check out MathJax.
+									</p>
+									</section>
+									<section>
+										<header>
+											<h3>MathJax</h3>
+										</header>
+									<p>
+										I hadn't used MathJax before, but it turns out it's super easy to use and displays very nicely. As it states in <a href="http://docs.mathjax.org/en/latest/start.html">the documentation</a>,
+										simply add 
+									</p>
+									<p>
+										\( \texttt{&lt;script type="text/javascript" async} \)<p>
+										</p>\(\texttt{ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"&gt;}\)</p>
+										<p>\(\texttt{&lt;/script&gt;} \)</p>
+									</p>
+									<p>
+										into the \( \texttt{&lt;head&gt;} \) block of the page and you're ready to go.
+										Then you just use <b><code>&#36;&#36;eqn here&#36;&#36;</code></b> or <b><code>\[eqn here\]</code></b> for displayed maths, e.g. $$1+sin(x)$$ and
+										<b><code>\(eqn here\)</code></b> for inline maths, e.g. \(1+sin(x)\). This is a lot nicer in my opinion, and fixes all the issues talked about for CodeCogs, as well as
+										being easier to type when you want to write an equation.
+									</p>
+									<p>
+										A minor point, but MathJax seems to become a bit annoying when trying to display its delimiting characters in math-mode, as I just discovered, which is why those pieces
+										of syntax in the last paragraph are just bolded. The earlier ones used the MathJax rendering of the \( \texttt{\texttt{} }\) latex command. There is likely a workaround
+										though, since I've just used the most ready-to-use form of MathJax which accesses their site when loading the page. 
+									</p>
+									</section>
+									<p>
+										I should point out that both CodeCogs and MathJax have multiple methods of implementation that I didn't mention, so I potentially gave CodeCogs a hard rap
+										(although I suspect MathJax would still be better).
+									</p>
+									<p>
+										In related news, I need to get a good way to display code...
+									</p>
+									<p>
+										Anyway, here's a few nicely rendered equations:
+									</p>
+									<p>
+										<a href="https://en.wikipedia.org/wiki/Schr%C3%B6dinger_equation">Time-Dependent Schr&ouml;dinger Equation</a>:
+											$$i\hbar\frac{\partial}{\partial t}\Psi(\mathbf{r},t) = \hat{H}\Psi(\mathbf{r},t)$$
+										<a href="https://en.wikipedia.org/wiki/Normal_distribution">Gaussian Distribution</a>:
+											$$f(x|\mu,\sigma) = \frac{ 1}{ \sigma\sqrt{2\pi}} e^{ -\frac{ (x-\mu)^2}{ 2\sigma^2} }$$
+										<a href="https://en.wikipedia.org/wiki/Einstein_field_equations">Einstein Field Equations</a>:
+											$$R_{\mu\nu} - \frac{1}{2} R g_{\mu\nu} + \Lambda g_{\mu\nu} = \frac{8\pi G}{c^4} T_{\mu\nu}$$
+									</p>
+									<p>
+										<i>Conor</i>
+									</p>
+								</article>
+								<hr />
+
+
 								<article id="first_projects">
 									<header>
 										<h2><a href="blog.html#first_projects">First Projects</a></h2>
@@ -197,6 +301,7 @@
 									<p>
 										It was an interesting experience to create this first project post, and I've learned a bit more about how I might like to proceed or
 										what I might like to change about the site in the future. I'll leave that for another post though.
+									</p>
 									<p>
 										<i>Conor</i>
 									</p>
