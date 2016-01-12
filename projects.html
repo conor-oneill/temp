@@ -13,6 +13,9 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<link rel="shortcut icon" href="images/myicon64.png"/>
+		<script type="text/javascript" async
+ 			src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+		</script>
 	</head>
 	<body class="left-sidebar">
 		<div id="page-wrapper">
@@ -35,6 +38,7 @@
 									<a href="projects.html">Projects</a>
 									<ul>
 										<li><a href="projects.html#recent">Recent Project Posts</a></li>
+										<li><a href="projects.html#random_numbers">Linear Regression via Gradient Descent &nbsp;&nbsp;&nbsp;&nbsp;<small><i>12/01/16</i></small></a></li>
 										<li><a href="projects.html#random_numbers">Random Number Generators &nbsp;&nbsp;&nbsp;&nbsp;<small><i>05/01/16</i></small></a></li>
 									</ul>
 								</li>
@@ -91,6 +95,18 @@
 									<p>
 										Chronological order
 									</p>
+
+									<div class="row 50%">
+										<div class="4u">
+											<a href="projects.html#lin_reg_grad_desc" class="image featured"><img src="images/ex1_running_estimates.png" alt="Linear Regression" /></a>
+										</div>
+										<div class="8u">
+											<h4><a href="projects.html#lin_reg_grad_desc">Linear Regression via Gradient Descent &nbsp;&nbsp;&nbsp;&nbsp;<small><i>12/01/16</i></small></a></h4>
+											<p>
+												Using gradient descent to perform linear regression.
+											</p>
+										</div>
+									</div>
 									
 									<div class="row 50%">
 										<div class="4u">
@@ -115,84 +131,97 @@
 							
 <!-- Main Content Column (right column) -->							
 							<div class="8u 12u(mobile) important(mobile)" id="content">
-								<!--
-								<article id="project_2">
+								
+								<article id="lin_reg_grad_desc">
 									<header>
-										<h2><a href="#">Project 2</a></h2>
+										<h2><a>Linear Regression via Gradient Descent</a></h2>
 										<p>
-											Comp Phys 2
+											Using gradient descent to perform linear regression
 										</p>
 									</header>
-									<a href="#" class="image featured"><img src="images/pic13.jpg" alt="" /></a>
-									<h3><small> <i> 05/01/16 </i> </small></h3>
+									<a href="projects.html#lin_reg_grad_desc" class="image featured"><img src="images/ex1_running_estimates.png" alt="Linear Regression" /></a>
+									<h3><small> <i> 12/01/16 </i> </small></h3>
 									<p>
-										Commodo id natoque malesuada sollicitudin elit suscipit. Curae suspendisse mauris posuere accumsan massa
-										posuere lacus convallis tellus interdum. Amet nullam fringilla nibh nulla convallis ut venenatis purus
-										lobortis. Auctor etiam porttitor phasellus tempus cubilia ultrices tempor sagittis. Nisl fermentum
-										consequat integer interdum integer purus sapien. Nibh eleifend nulla nascetur pharetra commodo mi augue
-										interdum tellus. Ornare cursus augue feugiat sodales velit lorem. Semper elementum ullamcorper lacinia
-										natoque aenean scelerisque vel lacinia mollis quam sodales congue.
+										<a href="https://en.wikipedia.org/wiki/Linear_regression">Linear regression</a> is one of the most common and straight-forward methods of modelling observational and experimental data.
+										It is used extensively throughout a variety of fields such as science, <a href="https://en.wikipedia.org/wiki/Econometrics">economics</a>, <a href="https://en.wikipedia.org/wiki/Beta_(finance)">finance</a>, and pretty much anything where someone is interested
+										in predictive modelling (though not extrapolation) or error reduction.
+										A simple example might be modelling how the height of a person is related to their weight. A slightly more involved example might be
+										modelling housing prices based on their size, number of bedrooms, locality, age, sale year, etc. 
+										Note that despite the name "linear," functions other than straight lines can be fit to data, such as <i>n</i>-degree polynomials.
+									</p>
+									<p>
+										The basic idea is, you have a set of values \(x\) for variables (e.g. height) that might influence a single variable \(y\) (e.g. weight) for which you have a corresponding set of values.
+										Let's say we just have heights and weights. You might want to be able to estimate a persons weight based on their height. You plot the data you already have
+										and figure it looks linear (let's say), so you model it as a straight line $$h_{\theta}(x) = \theta_0 + \theta_1 x,$$ where \(\theta\)s are your linear coefficients, 
+										and \(h_\theta\) is your linear model, or <i>hypothesis function</i>. You now want to determine what is the value of the \(\theta\)s that gives the best model to your data.
+										The typical way to do this is using an analytical method such as the <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares">ordinary least squares</a>. In this post,
+										I'm going to show how to do this using a method called <i>gradient descent</i>. I'm going to use examples and data from Andrew Ng's Stanford Machine Learning course, which 
+										you can take yourself as a <a href="https://en.wikipedia.org/wiki/Massive_open_online_course">MOOC</a> at <a href="https://www.coursera.org/learn/machine-learning/">Coursera</a>
+										(highly recommended), or check out the more involved actual course notes on the <a href="http://cs229.stanford.edu/">class site for CS229</a>. All code and plots have been generated
+										in <a href="https://www.gnu.org/software/octave/">Octave</a>, a free and open-source mathematical program that is very similar to Matlab.
 									</p>
 									<section>
 										<header>
-											<h3>Ultrices tempor sagittis nisl</h3>
+											<h3>Gradient Descent</h3>
 										</header>
 										<p>
-											Nascetur volutpat nibh ullamcorper vivamus at purus. Cursus ultrices porttitor sollicitudin imperdiet
-											at pretium tellus in euismod a integer sodales neque. Nibh quis dui quis mattis eget imperdiet venenatis
-											feugiat. Neque primis ligula cum erat aenean tristique luctus risus ipsum praesent iaculis. Fermentum elit
-											fringilla consequat dis arcu. Pellentesque mus tempor vitae pretium sodales porttitor lacus. Phasellus
-											egestas odio nisl duis sociis purus faucibus morbi. Eget massa mus etiam sociis pharetra magna.
+											<a href="https://en.wikipedia.org/wiki/Gradient_descent">Gradient descent</a> is an optimisation algorithm used for many purposes, including in backpropagation algorithms 
+											that are used for certain <a href="https://en.wikipedia.org/wiki/Artificial_neural_network">artificial neural networks</a>, a really cool topic I hope to cover quite a bit on this 
+											site in the future. I'll now explain a bit about how gradient descent works in a very simple case of a scalar linear regression, and then show a more general vectorised format
+											for multivariable linear regression.
 										</p>
 										<p>
-											Eleifend auctor turpis magnis sed porta nisl pretium. Aenean suspendisse nulla eget sed etiam parturient
-											orci cursus nibh. Quisque eu nec neque felis laoreet diam morbi egestas. Dignissim cras rutrum consectetur
-											ut penatibus fermentum nibh erat malesuada varius.
+											First we establish a cost function that describes how well our hypothesis function \(h_\theta (x)\) matches our actual data \(y\). We do this by taking the
+											sum of their squared difference for each of the cases \(i\) in our data set of \(m\) samples, and normalising it by dividing by \(2m\) (the 2 is chosen for later convienience).
+											This gives us the <b>cost function</b> $$J(\theta_0,\theta_1) = \frac{1}{2m} \sum^m_{i=1} \left(h_\theta (x^{(i)}) - y^{(i)}\right)^2.$$
+											The task is now to minimise the cost function over \(\theta_0\) and \(\theta_1\). That is, to find the values of  \(\theta_0\) and \(\theta_1\) that produce
+											the smallest \(J(\theta_0,\theta_1)\).
 										</p>
-									</section>
-									<section>
-										<header>
-											<h3>Augue euismod feugiat tempus</h3>
-										</header>
 										<p>
-											Pretium tellus in euismod a integer sodales neque. Nibh quis dui quis mattis eget imperdiet venenatis
-											feugiat. Neque primis ligula cum erat aenean tristique luctus risus ipsum praesent iaculis. Fermentum elit
-											ut nunc urna volutpat donec cubilia commodo risus morbi. Lobortis vestibulum velit malesuada ante
-											egestas odio nisl duis sociis purus faucibus morbi. Eget massa mus etiam sociis pharetra magna.
-										<img src="http://latex.codecogs.com/svg.latex?1+sin(x)" border="0"/> 
+											This is an optimisation task. The gradient descent approach to this to choose an initial value for \(\theta_0\) and \(\theta_1\), take the gradient of \(J(\theta_0,\theta_1)\)
+											for those values, and subtract it from them, iterating this process until convergence. A learning rate \(\alpha\) can be used to influence the step-size taken.
+											This algorithm is shown as follows:
+											$$\texttt{repeat until convergence}:\ \ \ \ \theta_j = \theta_j - \alpha \frac{\partial}{\partial\theta_j} J(\theta_0,\theta_1),\ \ \ \ \mathrm{for\ } j=0, 1.$$
 										</p>
-									</section>
-								</article>
-								<hr />
-							-->
-								<article id="random_numbers">
-									<header>
-										<h2><a>Linear Regression via Machine Learning</a></h2>
 										<p>
-											A brief look at generating and testing (pseudo) random numbers
+											One of the course's assignments supposes you are the CEO of a food truck franchise and are considering different cities for opening a new outlet. The company already has trucks in various cities, so you have the data for profits (\(y\)) made in these cities as well as the population of the city (\(x\)) . You want to use this data to help determine which city to next expand into. I've uploaded the dataset <a href="datasets/ex1data1.txt">here</a>, and a scatter plot of it is presented below.
+											<a class="image featured"><img src="images/ex1_plotData.png" alt="ex1_plotData.png" /></a>
 										</p>
-									</header>
-									<a href="projects.html#random_numbers" class="image featured"><img src="images/spectralTest2.PNG" alt="A spectral test" /></a>
-									<h3><small> <i> 10/01/16 </i> </small></h3>
-									<p>
+										<p>
+											This looks fairly linear, so we can treat it as described above, using gradient descent to find a straight line that 
+											best describes the data. If we start with an initial guess of 0 for both \(\theta_0\) and \(\theta_1\) (even though that will clearly be quite off &mdash; it's a horizontal line at \(y=0\)), a learning rate of \(\alpha=0.01\), and run the algorithm for 1500 iterations, we get the following.
+				
+										<div class="row">
+											<article class="6u 6u(mobile) special">
+												<a class="image featured"><img src="images/fit.gif" alt="fit.gif" /></a>
+											</article>
+											<article class="6u 6u(mobile) special">
+												<a class="image featured"><img src="images/cost.gif" alt="cost.gif" /></a>
+											</article>
+										</div>
 
-										
-									</p>
-									<section>
-										<header>
-											<h3></h3>
-										</header>
-										<p>
+										We see that initially the guess linear coefficents is poor, giving an horizontal line as a fit and a cost of \(J\approx 32\). After 500 iterations of gradient descent the fit
+										looks much better, and the cost has dropped dramatically to \(J\approx 4.7\). The next 500 and 1000 iterations only adjust the line by small amounts comparably.
+										By the end of 1500 iterations the cost value appears to have just about converged, as you can see by the flattening of the line in the right-hand plot, coming to \(J\approx 4.5\). The final fit looks decent,
+										at \(\theta_0 = -3.6298\) and \(\theta_1 = 1.1663\), giving an hypothesis function of \(h_{\theta}(x) = 1.1663 x -3.6298 \).
 										</p>
 										<p>
-											<h4>  </h4>
+											We can look at this from another angle to show what it is that the gradient descent is doing. The parameter space for the cost function \(J(\theta_0,\theta_1)\) is shown as a surface plot below.
+											<a class="image featured"><img src="images/ex1_surface.png" alt="ex1_surface.png" /></a>
+											This shows the value of \(J\) for different combinations of \(\theta_0\) and \(\theta_1\). Although our inital guess of \(\theta_0 = \theta_1 = 0\) looked pretty bad earlier, we can 
+											see here it could have been much worse (e.g. \(J(\theta_0=10,\theta_1=4)\sim 700 \))! This surface makes it easier to visualise what's happening with gradient descent &mdash; with 
+											each iteration, the \(J\) descends down this valley in the steepest direction at each step. Projected onto a 2D plane as a contour plot ("viewed from above"), the descent looks like this:
+											<a class="image featured"><img src="images/running_contour.gif" alt="running_contour.gif" /></a>
 										</p>
-										<p></p>
 									</section>
+									<p>
+										<b><i>to be continued after some sleep...</i></b>
+									</p>
 									<p>
 										<i>Conor</i>
 									</p>
 								</article>
+								<hr />
 
 
 								<article id="random_numbers">
